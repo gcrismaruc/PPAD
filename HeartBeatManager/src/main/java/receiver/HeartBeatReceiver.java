@@ -44,36 +44,12 @@ public class HeartBeatReceiver implements Runnable{
                 Gson gson = new Gson();
                 HeartBeatMessage receivedMessage = gson.fromJson(responseAsString, HeartBeatMessage.class);
 
-//                String[] response = responseAsString.split(",");
-//                UUID uuid = UUID.fromString(response[0].split("=")[1]);
-//                String name = response[1].split("=")[1];
-//                String version = response[2].split("=")[1];
-//                String[] services = response[3].split("=")[1].split("\\$");
-//
-//                List<Service> serviceList = new ArrayList<>();
-//
-//                for(String service : services) {
-//                    String[] serviceSplit = service.split("#");
-//
-//                    String serviceName = serviceSplit[0].replace("{", "");
-//                    String inputParameters = serviceSplit[1];
-//                    String outputParameter = serviceSplit[2].replace("}", "");
-//
-//                    Service service1 = new Service();
-//                    service1.setOutputParameter(outputParameter);
-//                    service1.setServiceName(serviceName);
-//                    service1.setInputParameters(inputParameters);
-//                    serviceList.add(service1);
-//                }
-
-
-
                 Host host = new Host();
                 host.setUpdatedTime(now);
                 host.setName(receivedMessage.getName());
                 host.setVersion(receivedMessage.getVersion());
                 host.setServices(receivedMessage.getServices());
-                host.setPort(datagramPacket.getPort());
+                host.setPort(receivedMessage.getPort());
                 host.setAddress(datagramPacket.getAddress());
                 manager.addHost(receivedMessage.getUuid(), host);
 

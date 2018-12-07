@@ -1,5 +1,5 @@
-import main.ClusterManager;
-import main.HeartBeatManager;
+package main;
+
 import monitoring.ServiceCleaner;
 import receiver.HeartBeatReceiver;
 import sender.HeartBeatMessage;
@@ -18,11 +18,12 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-public class Client2 {
-    public static void main(String[] args) throws IOException {
-       startClustering();
-    }
+public class Client1 {
+    public static final int PORT = 5566;
 
+    public static void main(String[] args) throws IOException {
+        startClustering();
+    }
 
     public static void startClustering() throws SocketException, UnknownHostException {
         InetAddress address = InetAddress.getByName("230.0.0.1");
@@ -38,7 +39,7 @@ public class Client2 {
 
         ClusterManager clusterManager = new ClusterManager();
         clusterManager.setManager(manager);
-        clusterManager.setPort(4498);
+        clusterManager.setPort(4499);
 
         heartBeatSender.setMessage(createHeartBeatMessage());
         DatagramSocket sendSocket = new DatagramSocket();
@@ -53,27 +54,33 @@ public class Client2 {
         ExecutorService executorService = Executors.newFixedThreadPool(5);
         ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(1);
 
+        main.Service service = new main.Service();
+
         executorService.execute(heartBeatReceiver);
         executorService.execute(heartBeatSender);
         executorService.execute(clusterManager);
-        scheduledExecutorService.scheduleWithFixedDelay(serviceCleaner, 10, 10, TimeUnit.SECONDS);
-
+        executorService.execute(service);
+        scheduledExecutorService.scheduleWithFixedDelay(serviceCleaner, 10, 3, TimeUnit.SECONDS);
     }
 
-    private static HeartBeatMessage createHeartBeatMessage(){
-        Service subService = new Service();
-        subService.setServiceName("subTwoIntegers");
-        subService.setInputParameters("int a; int b");
-        subService.setOutputParameter("int");
+    private static HeartBeatMessage createHeartBeatMessage() {
+        Service addService = new Service();
+        addService.setServiceName("addTwoIntegers");
+        addService.setInputParameters("int a; int b");
+        addService.setOutputParameter("int");
+
+        Service multiplyService = new Service();
+        multiplyService.setServiceName("multiplyTwoIntegers");
+        multiplyService.setInputParameters("int a; int b");
+        multiplyService.setOutputParameter("int");
 
         HeartBeatMessage message = new HeartBeatMessage();
-        message.setName("Client 2");
+        message.setName("Client 1");
         message.setVersion("v1");
-        message.setServices(Arrays.asList(subService));
+        message.setPort(PORT);
         message.setUuid(UUID.randomUUID());
+        message.setServices(Arrays.asList(multiplyService, addService));
 
         return message;
     }
-
-
 }

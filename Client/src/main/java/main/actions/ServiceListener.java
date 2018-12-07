@@ -40,7 +40,12 @@ public class ServiceListener implements TreeSelectionListener {
                     .collect(Collectors.toList())
                     .get(0);
 
-            client.updateInputParametersTextArea(service.getInputParameters());
+            client.updateSelectedServiceName(serviceName);
+            client.updateSelectedHost(client.getHosts()
+                    .get(uuid));
+            client.updateInputParametersTextArea(
+                    "Selected service: \n \t" + service.getOutputParameter() + " "
+                            + service.getServiceName() + "(" + service.getInputParameters() + ");");
         }
     }
 }

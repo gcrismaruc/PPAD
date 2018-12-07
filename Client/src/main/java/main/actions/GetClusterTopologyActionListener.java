@@ -34,7 +34,7 @@ public class GetClusterTopologyActionListener implements ActionListener {
                     .getText());
 
             DatagramPacket request, response;
-            DatagramSocket socket;
+            DatagramSocket socket = null;
             Gson gson = new Gson();
 
             byte[] buffer = new byte[1024];
@@ -79,6 +79,8 @@ public class GetClusterTopologyActionListener implements ActionListener {
 
             } catch (Exception ex) {
                 ex.printStackTrace();
+            } finally {
+                socket.close();
             }
         } catch (Exception ex) {
             ex.printStackTrace();

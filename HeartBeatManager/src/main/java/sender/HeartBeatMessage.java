@@ -7,7 +7,17 @@ public class HeartBeatMessage {
     private UUID uuid;
     private String name;
     private String version;
+    private int port;
     private List<Service> services;
+
+    public int getPort() {
+        return port;
+    }
+
+    public HeartBeatMessage setPort(int port) {
+        this.port = port;
+        return this;
+    }
 
     public UUID getUuid() {
         return uuid;
