@@ -1,5 +1,7 @@
 package sender;
 
+import com.google.gson.Gson;
+
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -17,7 +19,8 @@ public class HeartBeatSender implements Runnable {
 
         while(true) {
             DatagramPacket datagramPacket;
-            byte[] buffer = message.toString().getBytes();
+            Gson gson = new Gson();
+            byte[] buffer = gson.toJson(message).getBytes();
             try {
                 datagramPacket = new DatagramPacket(buffer, buffer.length, address, port);
                 socket.send(datagramPacket);

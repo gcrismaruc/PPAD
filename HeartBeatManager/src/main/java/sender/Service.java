@@ -34,11 +34,7 @@ public class Service {
 
     @Override
     public String toString() {
-        return "{serviceName:" + serviceName + "#" + "inputParameters:"
-                + inputParameters + "#" + "outputParameter:" + outputParameter + "}";
+        return "{serviceName:" + serviceName + ", " + "inputParameters:"
+                + inputParameters + ", " + "outputParameter:" + outputParameter + "}";
     }
-
-//    public static Service createService(String input) {
-//
-//    }
 }

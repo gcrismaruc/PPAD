@@ -7,7 +7,6 @@ import java.time.Instant;
 import java.util.List;
 
 public class Host {
-
     Instant updatedTime;
     String name;
     List<Service> services;
@@ -71,8 +70,8 @@ public class Host {
 
     @Override
     public String toString() {
-        return "Host{" + "updatedTime=" + updatedTime + ", name='" + name + '\'' + ", services="
-                + services + ", version='" + version + '\'' + ", address='" + address + '\''
-                + ", port=" + port + '}';
+        return "Host{" + "updatedTime: " + updatedTime + ", name: '" + name + '\'' + ", services: "
+                + services + ", version: '" + version + '\'' + ", address: '" + address + '\''
+                + ", port: " + port + '}';
     }
 }

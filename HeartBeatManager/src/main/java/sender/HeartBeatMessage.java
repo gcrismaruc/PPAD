@@ -1,12 +1,13 @@
 package sender;
 
+import java.util.List;
 import java.util.UUID;
 
 public class HeartBeatMessage {
     private UUID uuid;
     private String name;
     private String version;
-    private String services;
+    private List<Service> services;
 
     public UUID getUuid() {
         return uuid;
@@ -35,18 +36,18 @@ public class HeartBeatMessage {
         return this;
     }
 
-    public String getServices() {
+    public List<Service> getServices() {
         return services;
     }
 
-    public HeartBeatMessage setServices(String services) {
+    public HeartBeatMessage setServices(List<Service> services) {
         this.services = services;
         return this;
     }
 
     @Override
     public String toString() {
-        return "uuid=" + uuid + "," + "name=" + name + "," +  "version="
-                + version + "," + "services=" + services;
+        return "uuid: " + uuid + "," + "name: " + name + "," +  "version: "
+                + version + "," + "services: " + services;
     }
 }
