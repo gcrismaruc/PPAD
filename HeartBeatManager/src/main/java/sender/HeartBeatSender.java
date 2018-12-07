@@ -9,7 +9,7 @@ public class HeartBeatSender implements Runnable {
 
     private InetAddress address;
     private  int port;
-    String message;
+    HeartBeatMessage message;
     DatagramSocket socket;
 
 
@@ -17,7 +17,7 @@ public class HeartBeatSender implements Runnable {
 
         while(true) {
             DatagramPacket datagramPacket;
-            byte[] buffer = message.getBytes();
+            byte[] buffer = message.toString().getBytes();
             try {
                 datagramPacket = new DatagramPacket(buffer, buffer.length, address, port);
                 socket.send(datagramPacket);
@@ -52,11 +52,11 @@ public class HeartBeatSender implements Runnable {
         return this;
     }
 
-    public String getMessage() {
+    public HeartBeatMessage getMessage() {
         return message;
     }
 
-    public HeartBeatSender setMessage(String message) {
+    public HeartBeatSender setMessage(HeartBeatMessage message) {
         this.message = message;
         return this;
     }

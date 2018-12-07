@@ -1,10 +1,13 @@
 import main.HeartBeatManager;
 import receiver.HeartBeatReceiver;
+import sender.HeartBeatMessage;
 import sender.HeartBeatSender;
+import sender.Service;
 
 import java.io.IOException;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -18,7 +21,18 @@ public class Client2 {
         heartBeatSender.setAddress(address);
         heartBeatSender.setPort(port);
 
-        String message = "Client 2";
+
+        Service subService = new Service();
+        subService.setServiceName("subTwoIntegers");
+        subService.setInputParameters("int a; int b");
+        subService.setOutputParameter("int");
+
+        HeartBeatMessage message = new HeartBeatMessage();
+        message.setName("Client 2");
+        message.setVersion("v1");
+        message.setServices(subService.toString());
+        message.setUuid(UUID.randomUUID());
+
         heartBeatSender.setMessage(message);
         DatagramSocket sendSocket = new DatagramSocket();
         heartBeatSender.setSocket(sendSocket);
