@@ -7,6 +7,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="Client" />
         <module name="PPAD-Client1" />
         <module name="PPAD-Client2" />
         <module name="PPAD-Server" />

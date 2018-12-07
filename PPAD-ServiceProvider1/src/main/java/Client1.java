@@ -1,4 +1,5 @@
 import main.HeartBeatManager;
+import monitoring.ServiceCleaner;
 import receiver.HeartBeatReceiver;
 import sender.HeartBeatMessage;
 import sender.HeartBeatSender;
@@ -10,6 +11,8 @@ import java.net.InetAddress;
 import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class Client1 {
     public static void main(String[] args) throws IOException {
@@ -20,6 +23,9 @@ public class Client1 {
         HeartBeatSender heartBeatSender = new HeartBeatSender();
         heartBeatSender.setAddress(address);
         heartBeatSender.setPort(port);
+
+        ServiceCleaner serviceCleaner = new ServiceCleaner();
+        serviceCleaner.setManager(manager);
 
         Service addService = new Service();
         addService.setServiceName("addTwoIntegers");
@@ -51,5 +57,8 @@ public class Client1 {
 
         executorService.execute(heartBeatReceiver);
         executorService.execute(heartBeatSender);
+
+        ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(1);
+        scheduledExecutorService.scheduleWithFixedDelay(serviceCleaner, 10, 20, TimeUnit.SECONDS);
     }
 }

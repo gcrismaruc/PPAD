@@ -77,7 +77,7 @@ public class HeartBeatReceiver implements Runnable{
                 manager.addHost(uuid, host);
 
 
-//                manager.listHosts();
+                manager.listHosts();
 
             } catch (SocketException e) {
                 e.printStackTrace();

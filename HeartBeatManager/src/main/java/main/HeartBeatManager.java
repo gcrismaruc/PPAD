@@ -10,7 +10,7 @@ public class HeartBeatManager {
     private Map<UUID, Host> monitoredHosts;
 
     public HeartBeatManager() {
-        this.monitoredHosts = new HashMap<UUID, Host>();
+        this.monitoredHosts = new HashMap<>();
     }
 
     public HeartBeatManager(Map<UUID, Host> monitoredHosts) {
@@ -38,5 +38,14 @@ public class HeartBeatManager {
         monitoredHosts.forEach((uuid, host) -> {
             System.out.println(uuid + " host: " + host);
         });
+    }
+
+    public Map<UUID, Host> getMonitoredHosts() {
+        return monitoredHosts;
+    }
+
+    public HeartBeatManager setMonitoredHosts(Map<UUID, Host> monitoredHosts) {
+        this.monitoredHosts = monitoredHosts;
+        return this;
     }
 }
