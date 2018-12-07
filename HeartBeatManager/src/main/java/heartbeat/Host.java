@@ -2,6 +2,7 @@ package heartbeat;
 
 import sender.Service;
 
+import java.net.InetAddress;
 import java.time.Instant;
 import java.util.List;
 
@@ -11,6 +12,8 @@ public class Host {
     String name;
     List<Service> services;
     String version;
+    InetAddress address;
+    int port;
 
     public String getName() {
         return name;
@@ -48,9 +51,28 @@ public class Host {
         return this;
     }
 
+    public InetAddress getAddress() {
+        return address;
+    }
+
+    public Host setAddress(InetAddress address) {
+        this.address = address;
+        return this;
+    }
+
+    public int getPort() {
+        return port;
+    }
+
+    public Host setPort(int port) {
+        this.port = port;
+        return this;
+    }
+
     @Override
     public String toString() {
         return "Host{" + "updatedTime=" + updatedTime + ", name='" + name + '\'' + ", services="
-                + services + ", version='" + version + '\'' + '}';
+                + services + ", version='" + version + '\'' + ", address='" + address + '\''
+                + ", port=" + port + '}';
     }
 }

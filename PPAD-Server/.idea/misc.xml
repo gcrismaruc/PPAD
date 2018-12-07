@@ -8,6 +8,8 @@
         <option value="$PROJECT_DIR$/../PPAD-Client1/pom.xml" />
         <option value="$PROJECT_DIR$/../PPAD-Client2/pom.xml" />
         <option value="$PROJECT_DIR$/../HeartBeatManager/pom.xml" />
+        <option value="$PROJECT_DIR$/../PPAD-ServiceProvider2/pom.xml" />
+        <option value="$PROJECT_DIR$/../PPAD-ServiceProvider1/pom.xml" />
       </list>
     </option>
   </component>

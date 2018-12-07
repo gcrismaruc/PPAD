@@ -40,6 +40,7 @@ public class HeartBeatReceiver implements Runnable{
                 String responseAsString = new String(datagramPacket.getData(),
                         datagramPacket.getOffset(), datagramPacket.getLength());
 
+
                 Instant now = Instant.now();
 
                 String[] response = responseAsString.split(",");
@@ -65,15 +66,18 @@ public class HeartBeatReceiver implements Runnable{
                 }
 
 
+
                 Host host = new Host();
                 host.setUpdatedTime(now);
                 host.setName(name);
                 host.setVersion(version);
                 host.setServices(serviceList);
+                host.setPort(datagramPacket.getPort());
+                host.setAddress(datagramPacket.getAddress());
                 manager.addHost(uuid, host);
 
 
-                manager.listHosts();
+//                manager.listHosts();
 
             } catch (SocketException e) {
                 e.printStackTrace();
