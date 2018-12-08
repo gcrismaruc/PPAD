@@ -22,7 +22,7 @@ public class ServiceListener implements TreeSelectionListener {
     public void valueChanged(TreeSelectionEvent e) {
         TreePath treePath = client.getHostsTree()
                 .getSelectionPath();
-        if (treePath.getPathCount() > 2) {
+        if (treePath != null && treePath.getPathCount() > 2) {
 
             UUID uuid = UUID.fromString(treePath.getPathComponent(1)
                     .toString()
