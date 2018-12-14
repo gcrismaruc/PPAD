@@ -52,9 +52,11 @@ public class Client1 {
         heartBeatReceiver.setPort(port);
 
         ExecutorService executorService = Executors.newFixedThreadPool(5);
+        ExecutorService serviceExecutor = Executors.newFixedThreadPool(10);
         ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(1);
 
         main.Service service = new main.Service();
+        service.setExecutorService(serviceExecutor);
 
         executorService.execute(heartBeatReceiver);
         executorService.execute(heartBeatSender);

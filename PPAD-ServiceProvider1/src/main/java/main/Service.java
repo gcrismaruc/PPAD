@@ -1,24 +1,18 @@
 package main;
 
-import com.google.gson.Gson;
-import sender.OperationRequestMessage;
-import sender.OperationResponseMessage;
-import sender.OperationState;
-import utils.ServiceUtils;
-
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
+import java.util.concurrent.ExecutorService;
 
 public class Service implements Runnable {
+    private ExecutorService executorService;
 
     @Override
     public void run() {
-        DatagramPacket request, response;
         DatagramSocket socket = null;
-        Gson gson = new Gson();
 
         try {
             socket = new DatagramSocket(Client1.PORT);
@@ -26,13 +20,13 @@ public class Service implements Runnable {
             e.printStackTrace();
         }
 
+        byte[] buffer = new byte[2024];
+
         while (true) {
-            byte[] buffer = new byte[2024];
-
-            request = new DatagramPacket(buffer, buffer.length);
-
             try {
+                DatagramPacket request = new DatagramPacket(buffer, buffer.length);
                 socket.receive(request);
+
 
                 InetAddress address = request.getAddress();
                 int requestPort = request.getPort();
@@ -40,31 +34,27 @@ public class Service implements Runnable {
                 String requestAsString = new String(request.getData(), request.getOffset(),
                         request.getLength());
 
-                OperationRequestMessage operationMessage = gson.fromJson(requestAsString,
-                        OperationRequestMessage.class);
+                ServiceExecutor serviceExecutor = new ServiceExecutor();
+                serviceExecutor.setRequestAsString(requestAsString);
+                serviceExecutor.setPort(requestPort);
+                serviceExecutor.setAddress(address);
+                serviceExecutor.setSocket(socket);
 
 
-                OperationResponseMessage responseMessage = new OperationResponseMessage();
-
-                String opResponse;
-
-                try {
-                    opResponse = ServiceUtils.getResult(operationMessage);
-                    responseMessage.setResponse(opResponse);
-                    responseMessage.setState(OperationState.SUCCESS);
-                } catch (Exception e) {
-                    responseMessage.setState(OperationState.FAILED);
-                    responseMessage.setErrorMessage(e.getMessage());
-                }
-
-                buffer = gson.toJson(responseMessage).getBytes();
-                response = new DatagramPacket(buffer, buffer.length, address, requestPort);
-
-                socket.send(response);
+                executorService.execute(serviceExecutor);
 
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+    }
+
+    public ExecutorService getExecutorService() {
+        return executorService;
+    }
+
+    public Service setExecutorService(ExecutorService executorService) {
+        this.executorService = executorService;
+        return this;
     }
 }

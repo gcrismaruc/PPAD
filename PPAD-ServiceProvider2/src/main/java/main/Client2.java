@@ -52,9 +52,12 @@ public class Client2 {
         heartBeatReceiver.setPort(port);
 
         ExecutorService executorService = Executors.newFixedThreadPool(5);
+        ExecutorService serviceExecutor = Executors.newFixedThreadPool(10);
         ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(1);
 
+
         main.Service service = new main.Service();
+        service.setExecutorService(serviceExecutor);
 
         executorService.execute(heartBeatReceiver);
         executorService.execute(heartBeatSender);
@@ -73,7 +76,7 @@ public class Client2 {
         Service multiplyString = new Service();
         multiplyString.setServiceName("multiplyString");
         multiplyString.setInputParameters("String s; int multiplicationTimes");
-        subService.setOutputParameter("String");
+        multiplyString.setOutputParameter("String");
 
         HeartBeatMessage message = new HeartBeatMessage();
         message.setName("Client 2");
