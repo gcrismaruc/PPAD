@@ -16,6 +16,11 @@ public class ServiceUtils {
             stringBuilder.append(s);
         }
 
+        try {
+            Thread.sleep(20*1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return stringBuilder.toString();
     }
 

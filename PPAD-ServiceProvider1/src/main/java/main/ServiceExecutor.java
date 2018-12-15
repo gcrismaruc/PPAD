@@ -41,7 +41,9 @@ public class ServiceExecutor implements Runnable {
 
             try {
                 opResponse = ServiceUtils.getResult(operationMessage);
-                responseMessage.setResponse(opResponse);
+                responseMessage.setResponse(
+                        operationMessage.getServiceName() + " (" + operationMessage.getParameters()
+                                + ") = " + opResponse);
                 responseMessage.setState(OperationState.SUCCESS);
             } catch (Exception e) {
                 responseMessage.setState(OperationState.FAILED);

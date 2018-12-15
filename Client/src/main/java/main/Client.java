@@ -42,7 +42,7 @@ public class Client extends JFrame {
     }
 
     public void updateResultTextArea(String result) {
-        this.responseTextArea.setText(result);
+        this.responseTextArea.append("\n" + result);
     }
 
     public void updateSelectedHost(Host host) {

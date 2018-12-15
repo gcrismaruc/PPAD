@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/../Client/Client.iml" filepath="$PROJECT_DIR$/../Client/Client.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../HeartBeatManager/HeartBeatManager.iml" filepath="$PROJECT_DIR$/../HeartBeatManager/HeartBeatManager.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PPAD-ServiceProvider1.iml" filepath="$PROJECT_DIR$/PPAD-ServiceProvider1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../PPAD-ServiceProvider2/PPAD-ServiceProvider2.iml" filepath="$PROJECT_DIR$/../PPAD-ServiceProvider2/PPAD-ServiceProvider2.iml" />
+    </modules>
+  </component>
+</project>
